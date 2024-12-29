@@ -1,12 +1,19 @@
-// Keep the existing theme toggle code
+// Theme management with localStorage
 const themeToggle = document.querySelector('.theme-controller');
 
-document.documentElement.setAttribute('data-theme', 'dark');
-themeToggle.checked = true;
+// Get saved theme from localStorage or default to 'dark'
+const savedTheme = localStorage.getItem('theme') || 'dark';
+const isDark = savedTheme === 'dark';
 
+// Set initial theme and toggle state
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeToggle.checked = isDark;
+
+// Update theme and save preference when toggle changes
 themeToggle.addEventListener('change', function() {
   const newTheme = this.checked ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
 });
 
 // Smooth scroll implementation with custom timing and easing
