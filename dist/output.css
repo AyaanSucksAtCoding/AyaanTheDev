@@ -1201,6 +1201,10 @@ html {
   .btn-primary {
     --btn-color: var(--fallback-p);
   }
+
+  .btn-neutral {
+    --btn-color: var(--fallback-n);
+  }
 }
 
 @supports (color: color-mix(in oklab, black, black)) {
@@ -1226,6 +1230,16 @@ html {
   .btn-primary {
     --btn-color: var(--p);
   }
+
+  .btn-neutral {
+    --btn-color: var(--n);
+  }
+}
+
+.btn-neutral {
+  --tw-text-opacity: 1;
+  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-n,oklch(var(--n)/1));
 }
 
 .btn.glass {
@@ -1671,6 +1685,11 @@ html {
   max-width: 48rem;
 }
 
+.translate-x-9 {
+  --tw-translate-x: 2.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1756,6 +1775,11 @@ html {
 .bg-purple-950 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 7 100 / var(--tw-bg-opacity, 1));
+}
+
+.bg-neutral {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity, 1)));
 }
 
 .px-4 {
@@ -1845,6 +1869,36 @@ html {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.duration-200 {
+  transition-duration: 200ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
+}
+
+.duration-100 {
+  transition-duration: 100ms;
+}
+
+@supports not (color: oklch(0% 0 0)) {
+  .hover\:btn-neutral:hover {
+    --btn-color: var(--fallback-n);
+  }
+}
+
+@supports (color: oklch(0% 0 0)) {
+  .hover\:btn-neutral:hover {
+    --btn-color: var(--n);
+  }
+}
+
+.hover\:btn-neutral:hover {
+  --tw-text-opacity: 1;
+  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-n,oklch(var(--n)/1));
 }
 
 .hover\:scale-110:hover {
