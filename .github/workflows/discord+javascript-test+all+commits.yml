@@ -1,0 +1,72 @@
+name: JavaScript Code Check & Discord Notifications
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm install eslint --save-dev
+        
+    - name: Run ESLint
+      run: |
+        npx eslint . --ext .js --format stylish > eslint_report.txt || true
+        
+    - name: Create Issue on Problems
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const eslintReport = fs.readFileSync('eslint_report.txt', 'utf8');
+          
+          if (eslintReport.includes("error") || eslintReport.includes("warning")) {
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔍 ESLint Check Results',
+              body: `ESLint found issues in the latest commit:
+              \`\`\`
+              ${eslintReport}
+              \`\`\`
+              `
+            });
+          }
+          
+    - name: Send ESLint Results to Discord
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: |
+          🔍 ESLint Results for ${{ github.repository }}
+          Commit: ${{ github.sha }}
+          Status: ${{ job.status }}
+          
+    - name: Send Commit Details to Discord
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: |
+          📝 New Commit in ${{ github.repository }}
+          Author: ${{ github.actor }}
+          Message: ${{ github.event.head_commit.message }}
+          Branch: ${{ github.ref_name }}
+          Commit Link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
