@@ -9,21 +9,32 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    timeout-minutes: 10  # Add timeout to prevent hanging
     
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1  # Shallow clone for faster checkout
     
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
         cache: 'npm'
-        
+    
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    
     - name: Install dependencies
       run: |
-        npm ci
-        npm install eslint --save-dev
-        
+        npm ci --prefer-offline --no-audit
+        npm install eslint --save-dev --no-audit
+      
     - name: Run ESLint
       run: |
         npx eslint . --ext .js --format stylish > eslint_report.txt || true
@@ -49,24 +60,13 @@ jobs:
             });
           }
           
-    - name: Send ESLint Results to Discord
+    - name: Send Results to Discord
+      if: always()
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
         args: |
-          🔍 ESLint Results for ${{ github.repository }}
-          Commit: ${{ github.sha }}
+          🔍 Results for ${{ github.repository }}
           Status: ${{ job.status }}
-          
-    - name: Send Commit Details to Discord
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
-      with:
-        args: |
-          📝 New Commit in ${{ github.repository }}
-          Author: ${{ github.actor }}
-          Message: ${{ github.event.head_commit.message }}
-          Branch: ${{ github.ref_name }}
-          Commit Link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+          Commit: ${{ github.sha }}
