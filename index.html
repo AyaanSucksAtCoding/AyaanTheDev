@@ -1,13 +1,191 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
-</body>
-<script src="script.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Name - Young Web Developer Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/feather-icons"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <a href="#" class="logo">YN</a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+          <i data-feather="moon"></i>
+        </button>
+        <button id="mobile-menu-toggle" aria-label="Toggle mobile menu">
+          <i data-feather="menu"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="container">
+        <h1>Your Name</h1>
+        <p class="subtitle">Young Web Developer</p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">Get in touch</a>
+          <a href="#projects" class="btn btn-secondary">View projects</a>
+        </div>
+      </section>
+
+      <section id="about" class="container">
+        <h2>About Me</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              Hi there! I'm an 11-year-old web developer with a passion for
+              creating cool websites and apps. I love learning new technologies
+              and solving problems with code.
+            </p>
+            <p>
+              When I'm not coding, I enjoy playing video games, reading books
+              about technology, and hanging out with my friends.
+            </p>
+          </div>
+          <div class="github-card">
+            <img
+              src="/placeholder.svg?height=100&width=100"
+              alt="GitHub Avatar"
+              class="github-avatar"
+            />
+            <h3>YourGitHubUsername</h3>
+            <p>Young Developer</p>
+            <div class="github-stats">
+              <div>
+                <strong>10+</strong>
+                <span>Repositories</span>
+              </div>
+              <div>
+                <strong>100+</strong>
+                <span>Contributions</span>
+              </div>
+            </div>
+            <a
+              href="https://github.com/YourGitHubUsername"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-outline"
+              >View GitHub</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="container">
+        <h2>Experience</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Web Development Journey</h3>
+              <p class="company">Self-taught & Online Courses</p>
+              <p class="date">Last 5 months</p>
+              <ul>
+                <li>Learned HTML, CSS, and basic JavaScript</li>
+                <li>Completed online courses on web development</li>
+                <li>Built personal projects to practice my skills</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="container">
+        <h2>Projects</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <img src="/placeholder.svg?height=200&width=300" alt="Project 1" />
+            <h3>My Personal Blog</h3>
+            <p>
+              A simple blog website where I share my coding journey and things
+              I've learned. Built with HTML and CSS.
+            </p>
+            <div class="project-links">
+              <a href="#" class="btn btn-sm">View Site</a>
+              <a href="#" class="btn btn-sm btn-outline">Code</a>
+            </div>
+          </div>
+          <div class="project-card">
+            <img src="/placeholder.svg?height=200&width=300" alt="Project 2" />
+            <h3>Math Quiz Game</h3>
+            <p>
+              An interactive math quiz game for kids my age, created using HTML,
+              CSS, and JavaScript.
+            </p>
+            <div class="project-links">
+              <a href="#" class="btn btn-sm">Play Game</a>
+              <a href="#" class="btn btn-sm btn-outline">Code</a>
+            </div>
+          </div>
+          <div class="project-card">
+            <img src="/placeholder.svg?height=200&width=300" alt="Project 3" />
+            <h3>Weather App</h3>
+            <p>
+              A simple weather app that shows the current weather and forecast
+              for any city. Uses HTML, CSS, and JavaScript with a weather API.
+            </p>
+            <div class="project-links">
+              <a href="#" class="btn btn-sm">View App</a>
+              <a href="#" class="btn btn-sm btn-outline">Code</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="container">
+        <h2>Get in Touch</h2>
+        <div class="contact-content">
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i data-feather="mail"></i>
+              <a href="mailto:your.email@example.com">your.email@example.com</a>
+            </div>
+            <div class="contact-item">
+              <i data-feather="github"></i>
+              <a
+                href="https://github.com/YourGitHubUsername"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub</a
+              >
+            </div>
+            <div class="contact-item">
+              <i data-feather="message-circle"></i>
+              <span>Discord: YourDiscordUsername#1234</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Your Name. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
